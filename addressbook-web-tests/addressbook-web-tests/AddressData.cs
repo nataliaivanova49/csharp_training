@@ -6,33 +6,33 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class AddressData
+    public class AddressData
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname;
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string address;
-        private string home;
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email;
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private string bday = "";
-        private string bmonth = "";
-        private string byear = "";
-        private string aday = "";
-        private string amonth = "";
-        private string ayear = "";
-        private string groupselection = "";
-        private string address2 = "";
-        private string phone2 = "";
-        private string notes = "";
+        protected string firstname;
+        protected string middlename = "";
+        protected string lastname;
+        protected string nickname = "";
+        protected string title = "";
+        protected string company = "";
+        protected string address;
+        protected string home;
+        protected string mobile = "";
+        protected string work = "";
+        protected string fax = "";
+        protected string email;
+        protected string email2 = "";
+        protected string email3 = "";
+        protected string homepage = "";
+        protected string bday = "";
+        protected string bmonth = "";
+        protected string byear = "";
+        protected string aday = "";
+        protected string amonth = "";
+        protected string ayear = "";
+        protected string groupselection = "";
+        protected string address2 = "";
+        protected string phone2 = "";
+        protected string notes = "";
 
         public AddressData(string firstname, string lastname, string address, string home, string email)
         {
