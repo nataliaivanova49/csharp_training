@@ -1,105 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
-
 {
-    public class TestBase
+    public class AddressHelper : HelperBase
     {
-        protected IWebDriver driver;
-        protected StringBuilder verificationErrors;
-        protected string baseURL;
-                
-
-        [SetUp]
-        public void SetupTest()
+        public bool acceptNextAlert;
+        
+        public AddressHelper(IWebDriver driver, bool acceptNextAlert) : base(driver)
         {
-            driver = new FirefoxDriver();
-            baseURL = "http://localhost/addressbook";
-            verificationErrors = new StringBuilder();
+            this.acceptNextAlert = acceptNextAlert;
         }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-        protected void GoToHomePage()
-        {
-            driver.Navigate().GoToUrl(baseURL);
-        }
-        protected void Login(AccountData account)
-        {
-            driver.FindElement(By.Id("top")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-        }
-        protected void ReturnToGroupPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-        }
-
-        protected void RemoveGroup()
-        {
-            driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
-        }
-
-        protected void SelectGroup(int index)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-        }
-
-        protected void GoToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
-        protected void Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
-        }
-        protected void InitNewGroupCreation()
-        {
-            driver.FindElement(By.Name("new")).Click();
-        }
-        protected void FillGroupForm(GroupData group)
-        {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-        }
-        protected void SubmitGroupCreation()
-        {
-            driver.FindElement(By.Name("submit")).Click();
-        }
-        protected void SubmitAddressCreation()
+        public void SubmitAddressCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
         }
 
-        protected void FillAddressForm(AddressData address)
+        public void FillAddressForm(AddressData address)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -167,7 +91,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("ayear")).SendKeys(address.Ayear);
             driver.FindElement(By.Name("new_group")).Click();
             new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText("aaa");
-            driver.FindElement(By.XPath("(//option[@value='4'])[3]")).Click();
+            driver.FindElement(By.XPath("(//option[@value='8'])[3]")).Click();
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(address.Address2);
@@ -179,17 +103,49 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("notes")).SendKeys(address.Notes);
         }
 
-        protected void PhotoUpload()
+        public void PhotoUpload()
         {
             By fileInput = By.CssSelector("input[type=file]");
             String filePath = "C:\\Selenium\\Addressbook.png";
             driver.FindElement(fileInput).SendKeys(filePath);
         }
-        protected void InitNewAddressCreation()
+        public void InitNewAddressCreation()
         {
             driver.FindElement(By.Id("content")).Click();
             driver.FindElement(By.LinkText("add new")).Click();
         }
+        public void SelectAddress(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click(); 
+        }
+        public void RemoveAddress(bool acceptNextAlert)
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+        }
+            public string CloseAlertAndGetItsText()
+            {
+                try
+                {
+                    IAlert alert = driver.SwitchTo().Alert();
+                    string alertText = alert.Text;
+                    if (acceptNextAlert)
+                    {
+                        alert.Accept();
+                    }
+                    else
+                    {
+                        alert.Dismiss();
+                    }
+                    return alertText;
+                }
+                finally
+                {
+                    acceptNextAlert = true;
+                }
+            }
+        }
 
     }
-}
+
+

@@ -13,9 +13,9 @@ namespace WebAddressbookTests
         [Test]
         public void AddressCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitNewAddressCreation();
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Address.InitNewAddressCreation();
             AddressData address = new AddressData("Natalia", "Ivanova", "123456 Address", "88121234567", "nataliaivanova49@gmail.com");
             address.Middlename = "Alexander";
             address.Nickname = "nataliaivanova49";
@@ -37,14 +37,11 @@ namespace WebAddressbookTests
             address.Address2 = "1234567 Address2";
             address.Phone2 = "++79999999999";
             address.Notes = "Notes";
-            FillAddressForm(address);
-            SubmitAddressCreation();
-            GoToHomePage();
-            Logout();
+            app.Address.FillAddressForm(address);
+            app.Address.SubmitAddressCreation();
+            app.Navigator.GoToHomePage();
+            app.Logout.Logout();
         }
-                
-        
-             
-       
+ 
     }
 }
