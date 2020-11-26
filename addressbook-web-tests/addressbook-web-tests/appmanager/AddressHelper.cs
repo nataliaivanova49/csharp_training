@@ -13,11 +13,9 @@ namespace WebAddressbookTests
     public class AddressHelper : HelperBase
     {
         public bool acceptNextAlert;
+       
+        public AddressHelper(IWebDriver driver) : base(driver) { }
         
-        public AddressHelper(IWebDriver driver, bool acceptNextAlert) : base(driver)
-        {
-            this.acceptNextAlert = acceptNextAlert;
-        }
         public void SubmitAddressCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
@@ -91,7 +89,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("ayear")).SendKeys(address.Ayear);
             driver.FindElement(By.Name("new_group")).Click();
             new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText("aaa");
-            driver.FindElement(By.XPath("(//option[@value='8'])[3]")).Click();
+            driver.FindElement(By.XPath("(//option[@value='10'])[3]")).Click();
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(address.Address2);
@@ -123,6 +121,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
         }
+       
             public string CloseAlertAndGetItsText()
             {
                 try

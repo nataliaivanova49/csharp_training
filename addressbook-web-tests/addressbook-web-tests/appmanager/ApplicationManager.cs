@@ -13,8 +13,7 @@ namespace WebAddressbookTests
     {
         protected IWebDriver driver;
         protected string baseURL;
-        protected bool acceptNextAlert;
-
+        
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
@@ -23,11 +22,14 @@ namespace WebAddressbookTests
 
         public ApplicationManager()
         {
+            driver = new FirefoxDriver();
+            baseURL = "http://localhost/addressbook/";
+            
             loginHelper = new LoginHelper(driver);
             navigator = new NavigationHelper(driver, baseURL);
             groupHelper = new GroupHelper(driver);
             logoutHelper = new LogoutHelper(driver);
-            addressHelper = new AddressHelper(driver, acceptNextAlert);
+            addressHelper = new AddressHelper(driver);
         }
         public void Stop() 
         { }
