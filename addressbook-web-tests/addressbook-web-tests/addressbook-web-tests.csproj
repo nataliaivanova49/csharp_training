@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="tests\AddressModificationTests.cs" />
+    <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="model\AddressData.cs" />
     <Compile Include="appmanager\AddressHelper.cs" />

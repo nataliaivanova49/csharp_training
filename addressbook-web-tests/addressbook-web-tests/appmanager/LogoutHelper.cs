@@ -13,7 +13,7 @@ namespace WebAddressbookTests
     public class LogoutHelper : HelperBase
 
     {
-        public LogoutHelper(IWebDriver driver) : base(driver)
+        public LogoutHelper(ApplicationManager manager) : base(manager)
         {
         }
         public void Logout()

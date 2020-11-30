@@ -13,12 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void AddressRemovalTest()
         {
-            app.Navigator.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Address.SelectAddress(1);
-            app.Address.RemoveAddress(true);
-            app.Navigator.GoToHomePage();
-            app.Logout.Logout();
+            app.Address.Remove(1);                               
         }
 
     }
