@@ -21,8 +21,9 @@ namespace WebAddressbookTests
             SubmitAddressCreation();
             return this;
         }
-        public AddressHelper Modify(AddressData newData)
+        public AddressHelper Modify(AddressData newData, AddressData address)
         {
+            RemoveModifyAddressPreparation(address);
             InitAddressModofocation();
             FillModifiedAddressForm(newData);
             SubmitAddressModification();
@@ -32,85 +33,42 @@ namespace WebAddressbookTests
         public AddressHelper FillModifiedAddressForm(AddressData newData)
         {
             {
-                driver.FindElement(By.Name("firstname")).Click();
-                driver.FindElement(By.Name("firstname")).Clear();
-                driver.FindElement(By.Name("firstname")).SendKeys(newData.Firstname);
-                driver.FindElement(By.Name("middlename")).Click();
-                driver.FindElement(By.Name("middlename")).Clear();
-                driver.FindElement(By.Name("middlename")).SendKeys(newData.Middlename);
-                driver.FindElement(By.Name("lastname")).Click();
-                driver.FindElement(By.Name("lastname")).Clear();
-                driver.FindElement(By.Name("lastname")).SendKeys(newData.Lastname);
-                driver.FindElement(By.Name("nickname")).Click();
-                driver.FindElement(By.Name("nickname")).Clear();
-                driver.FindElement(By.Name("nickname")).SendKeys(newData.Nickname);
+                Type(By.Name("firstname"), newData.Firstname);
+                Type(By.Name("middlename"), newData.Middlename);
+                Type(By.Name("lastname"), newData.Lastname);
+                Type(By.Name("nickname"), newData.Nickname);
                 PhotoUpload();
-                driver.FindElement(By.Name("title")).Click();
-                driver.FindElement(By.Name("title")).Clear();
-                driver.FindElement(By.Name("title")).SendKeys(newData.Title);
-                driver.FindElement(By.Name("company")).Click();
-                driver.FindElement(By.Name("company")).Clear();
-                driver.FindElement(By.Name("company")).SendKeys(newData.Company);
-                driver.FindElement(By.Name("address")).Click();
-                driver.FindElement(By.Name("address")).Clear();
-                driver.FindElement(By.Name("address")).SendKeys(newData.Address);
-                driver.FindElement(By.Name("home")).Click();
-                driver.FindElement(By.Name("home")).Clear();
-                driver.FindElement(By.Name("home")).SendKeys(newData.Home);
-                driver.FindElement(By.Name("mobile")).Click();
-                driver.FindElement(By.Name("mobile")).Clear();
-                driver.FindElement(By.Name("mobile")).SendKeys(newData.Mobile);
-                driver.FindElement(By.Name("work")).Click();
-                driver.FindElement(By.Name("work")).Clear();
-                driver.FindElement(By.Name("work")).SendKeys(newData.Work);
-                driver.FindElement(By.Name("fax")).Click();
-                driver.FindElement(By.Name("fax")).Clear();
-                driver.FindElement(By.Name("fax")).SendKeys(newData.Fax);
-                driver.FindElement(By.Name("email")).Click();
-                driver.FindElement(By.Name("email")).Clear();
-                driver.FindElement(By.Name("email")).SendKeys(newData.Email);
-                driver.FindElement(By.Name("email2")).Click();
-                driver.FindElement(By.Name("email2")).Clear();
-                driver.FindElement(By.Name("email2")).SendKeys(newData.Email2);
-                driver.FindElement(By.Name("email3")).Click();
-                driver.FindElement(By.Name("email3")).Clear();
-                driver.FindElement(By.Name("email3")).SendKeys(newData.Email3);
-                driver.FindElement(By.Name("homepage")).Click();
-                driver.FindElement(By.Name("homepage")).Clear();
-                driver.FindElement(By.Name("homepage")).SendKeys(newData.Homepage);
-                driver.FindElement(By.Name("bday")).Click();
+                Type(By.Name("title"), newData.Title);
+                Type(By.Name("company"), newData.Company);
+                Type(By.Name("address"), newData.Address);
+                Type(By.Name("home"), newData.Home);
+                Type(By.Name("mobile"), newData.Mobile);
+                Type(By.Name("work"), newData.Work);
+                Type(By.Name("fax"), newData.Fax);
+                Type(By.Name("email"), newData.Email);
+                Type(By.Name("email2"), newData.Email2);
+                Type(By.Name("email3"), newData.Email3);
+                Type(By.Name("homepage"), newData.Homepage);
                 new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(newData.Bday);
                 driver.FindElement(By.XPath("//option[@value='17']")).Click();
-                driver.FindElement(By.Name("bmonth")).Click();
                 new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("June");
                 driver.FindElement(By.XPath("//option[@value='June']")).Click();
-                driver.FindElement(By.Name("byear")).Click();
-                driver.FindElement(By.Name("byear")).Clear();
-                driver.FindElement(By.Name("byear")).SendKeys(newData.Byear);
-                driver.FindElement(By.Name("aday")).Click();
+                Type(By.Name("byear"), newData.Byear);
                 new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(newData.Aday);
                 driver.FindElement(By.XPath("(//option[@value='17'])[2]")).Click();
-                driver.FindElement(By.Name("amonth")).Click();
                 new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("June");
                 driver.FindElement(By.XPath("(//option[@value='June'])[2]")).Click();
-                driver.FindElement(By.Name("ayear")).Click();
-                driver.FindElement(By.Name("ayear")).Clear();
-                driver.FindElement(By.Name("ayear")).SendKeys(newData.Ayear);
-                driver.FindElement(By.Name("address2")).Click();
-                driver.FindElement(By.Name("address2")).Clear();
-                driver.FindElement(By.Name("address2")).SendKeys(newData.Address2);
-                driver.FindElement(By.Name("phone2")).Click();
-                driver.FindElement(By.Name("phone2")).Clear();
-                driver.FindElement(By.Name("phone2")).SendKeys(newData.Phone2);
-                driver.FindElement(By.Name("notes")).Click();
-                driver.FindElement(By.Name("notes")).Clear();
-                driver.FindElement(By.Name("notes")).SendKeys(newData.Notes);
+                Type(By.Name("ayear"), newData.Ayear);
+                Type(By.Name("address2"), newData.Address2);
+                Type(By.Name("phone2"), newData.Phone2);
+                Type(By.Name("notes"), newData.Notes);
                 return this;
             }
         }
 
-        public AddressHelper Remove(int q)
+        public AddressHelper Remove(int q, AddressData address)
         {
+            RemoveModifyAddressPreparation(address);
             SelectAddress(q);
             RemoveAddress();
             return this;
@@ -124,82 +82,38 @@ namespace WebAddressbookTests
 
         public AddressHelper FillAddressForm(AddressData address)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(address.Firstname);
-            driver.FindElement(By.Name("middlename")).Click();
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(address.Middlename);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(address.Lastname);
-            driver.FindElement(By.Name("nickname")).Click();
-            driver.FindElement(By.Name("nickname")).Clear();
-            driver.FindElement(By.Name("nickname")).SendKeys(address.Nickname);
+            Type(By.Name("firstname"), address.Firstname);
+            Type(By.Name("middlename"), address.Middlename);
+            Type(By.Name("lastname"), address.Lastname);
+            Type(By.Name("nickname"), address.Nickname);
             PhotoUpload();
-            driver.FindElement(By.Name("title")).Click();
-            driver.FindElement(By.Name("title")).Clear();
-            driver.FindElement(By.Name("title")).SendKeys(address.Title);
-            driver.FindElement(By.Name("company")).Click();
-            driver.FindElement(By.Name("company")).Clear();
-            driver.FindElement(By.Name("company")).SendKeys(address.Company);
-            driver.FindElement(By.Name("address")).Click();
-            driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys(address.Address);
-            driver.FindElement(By.Name("home")).Click();
-            driver.FindElement(By.Name("home")).Clear();
-            driver.FindElement(By.Name("home")).SendKeys(address.Home);
-            driver.FindElement(By.Name("mobile")).Click();
-            driver.FindElement(By.Name("mobile")).Clear();
-            driver.FindElement(By.Name("mobile")).SendKeys(address.Mobile);
-            driver.FindElement(By.Name("work")).Click();
-            driver.FindElement(By.Name("work")).Clear();
-            driver.FindElement(By.Name("work")).SendKeys(address.Work);
-            driver.FindElement(By.Name("fax")).Click();
-            driver.FindElement(By.Name("fax")).Clear();
-            driver.FindElement(By.Name("fax")).SendKeys(address.Fax);
-            driver.FindElement(By.Name("email")).Click();
-            driver.FindElement(By.Name("email")).Clear();
-            driver.FindElement(By.Name("email")).SendKeys(address.Email);
-            driver.FindElement(By.Name("email2")).Click();
-            driver.FindElement(By.Name("email2")).Clear();
-            driver.FindElement(By.Name("email2")).SendKeys(address.Email2);
-            driver.FindElement(By.Name("email3")).Click();
-            driver.FindElement(By.Name("email3")).Clear();
-            driver.FindElement(By.Name("email3")).SendKeys(address.Email3);
-            driver.FindElement(By.Name("homepage")).Click();
-            driver.FindElement(By.Name("homepage")).Clear();
-            driver.FindElement(By.Name("homepage")).SendKeys(address.Homepage);
+            Type(By.Name("title"), address.Title);
+            Type(By.Name("company"), address.Company);
+            Type(By.Name("address"), address.Address);
+            Type(By.Name("home"), address.Home);
+            Type(By.Name("mobile"), address.Mobile);
+            Type(By.Name("work"), address.Work);
+            Type(By.Name("fax"), address.Fax);
+            Type(By.Name("email"), address.Email);
+            Type(By.Name("email2"), address.Email2);
+            Type(By.Name("email3"), address.Email3);
+            Type(By.Name("homepage"), address.Homepage);
             driver.FindElement(By.Name("bday")).Click();
             new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(address.Bday);
             driver.FindElement(By.XPath("//option[@value='17']")).Click();
-            driver.FindElement(By.Name("bmonth")).Click();
             new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("June");
             driver.FindElement(By.XPath("//option[@value='June']")).Click();
-            driver.FindElement(By.Name("byear")).Click();
-            driver.FindElement(By.Name("byear")).Clear();
-            driver.FindElement(By.Name("byear")).SendKeys(address.Byear);
-            driver.FindElement(By.Name("aday")).Click();
+            Type(By.Name("byear"), address.Byear);
             new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(address.Aday);
             driver.FindElement(By.XPath("(//option[@value='17'])[2]")).Click();
-            driver.FindElement(By.Name("amonth")).Click();
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("June");
             driver.FindElement(By.XPath("(//option[@value='June'])[2]")).Click();
-            driver.FindElement(By.Name("ayear")).Click();
-            driver.FindElement(By.Name("ayear")).Clear();
-            driver.FindElement(By.Name("ayear")).SendKeys(address.Ayear);
-            driver.FindElement(By.Name("new_group")).Click();
-            new SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText("aaa");
-            driver.FindElement(By.XPath("(//option[@value='10'])[3]")).Click();
-            driver.FindElement(By.Name("address2")).Click();
-            driver.FindElement(By.Name("address2")).Clear();
-            driver.FindElement(By.Name("address2")).SendKeys(address.Address2);
-            driver.FindElement(By.Name("phone2")).Click();
-            driver.FindElement(By.Name("phone2")).Clear();
-            driver.FindElement(By.Name("phone2")).SendKeys(address.Phone2);
-            driver.FindElement(By.Name("notes")).Click();
-            driver.FindElement(By.Name("notes")).Clear();
-            driver.FindElement(By.Name("notes")).SendKeys(address.Notes);
+            Type(By.Name("ayear"), address.Ayear);
+            // SelectElement(driver.FindElement(By.Name("new_group"))).SelectByText("aaa");
+            //driver.FindElement(By.XPath("(//option[@value='15'])[3]")).Click();
+            Type(By.Name("address2"), address.Address2);
+            Type(By.Name("phone2"), address.Phone2);
+            Type(By.Name("notes"), address.Notes);
             return this;
         }
 
@@ -239,7 +153,27 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
         }
-        
+        public bool IsAddressPresent()
+        {
+            try
+            {
+                driver.FindElement(By.XPath("//img[@alt='Edit']"));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        public AddressHelper RemoveModifyAddressPreparation(AddressData address)
+        {
+            if (!IsAddressPresent())
+            {
+                Create(address);
+                manager.Navigator.GoToHomePage();
+            }
+            return this;
+        }
     }
 }
 

@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressModificationTests : TestBase
+    public class AddressModificationTests : AuthTestBase
     {
         [Test]
         public void AddressModificationTest()
@@ -27,15 +27,37 @@ namespace WebAddressbookTests
             newData.Homepage = "111.com";
             newData.Bday = "11";
             newData.Bmonth = "June";
-            newData.Byear = "1985";
+            newData.Byear = null;
             newData.Aday = "11";
             newData.Amonth = "June";
-            newData.Ayear = "2025";
-            newData.Address2 = "111";
-            newData.Phone2 = "+111";
-            newData.Notes = "222";
+            newData.Ayear = null;
+            newData.Address2 = null;
+            newData.Phone2 = null;
+            newData.Notes = null;
 
-            app.Address.Modify(newData);
+            AddressData address = new AddressData("Natalia", "Ivanova", "123456 Address", "88121234567", "nataliaivanova49@gmail.com");
+            address.Middlename = "Alexander";
+            address.Nickname = "nataliaivanova49";
+            address.Title = "Test";
+            address.Company = "ABC";
+            address.Mobile = "+79041234567";
+            address.Work = "88127654321";
+            address.Fax = "88121726354";
+            address.Email2 = "nataliaivanova49@gmail.com";
+            address.Email3 = "nataliaivanova49@gmail.com";
+            address.Homepage = "qqq.com";
+            address.Bday = "17";
+            address.Bmonth = "June";
+            address.Byear = "1985";
+            address.Aday = "17";
+            address.Amonth = "June";
+            address.Ayear = "2025";
+            address.Groupselection = "none";
+            address.Address2 = "1234567 Address2";
+            address.Phone2 = "++79999999999";
+            address.Notes = "Notes";
+
+            app.Address.Modify(newData, address);
         }
     }
 }
