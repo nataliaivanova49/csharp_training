@@ -17,20 +17,18 @@ namespace WebAddressbookTests
         {
         }
 
-        public GroupHelper Remove(int v, GroupData group)
+        public GroupHelper Remove(int v)
         {
-            manager.Navigator.GoToGroupsPage();
-            RemoveModifyGroupPreparation(v, group);
+            manager.Navigator.GoToGroupsPage();           
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupPage();
             return this;
         }
 
-        public GroupHelper Modify(int v, GroupData newData, GroupData group)
+        public GroupHelper Modify(int v, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
-            RemoveModifyGroupPreparation(v, group);
+            manager.Navigator.GoToGroupsPage();            
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);

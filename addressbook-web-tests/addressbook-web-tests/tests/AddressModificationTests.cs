@@ -57,7 +57,8 @@ namespace WebAddressbookTests
             address.Phone2 = "++79999999999";
             address.Notes = "Notes";
 
-            app.Address.Modify(newData, address);
+            app.Address.RemoveModifyAddressPreparation(address);
+            app.Address.Modify(newData);
         }
     }
 }

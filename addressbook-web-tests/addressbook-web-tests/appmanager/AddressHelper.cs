@@ -21,9 +21,8 @@ namespace WebAddressbookTests
             SubmitAddressCreation();
             return this;
         }
-        public AddressHelper Modify(AddressData newData, AddressData address)
+        public AddressHelper Modify(AddressData newData)
         {
-            RemoveModifyAddressPreparation(address);
             InitAddressModofocation();
             FillModifiedAddressForm(newData);
             SubmitAddressModification();
@@ -66,9 +65,8 @@ namespace WebAddressbookTests
             }
         }
 
-        public AddressHelper Remove(int q, AddressData address)
-        {
-            RemoveModifyAddressPreparation(address);
+        public AddressHelper Remove(int q)
+        {            
             SelectAddress(q);
             RemoveAddress();
             return this;

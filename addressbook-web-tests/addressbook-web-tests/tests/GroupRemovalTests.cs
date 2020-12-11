@@ -18,7 +18,10 @@ namespace WebAddressbookTests
             GroupData group = new GroupData("aaa");
             group.Header = "bbb";
             group.Footer = "ccc";
-            app.Groups.Remove(1, group);          
+            //preparation            
+            app.Groups.RemoveModifyGroupPreparation(1, group);
+            //remove group
+            app.Groups.Remove(1);          
         }
         
     }

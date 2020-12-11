@@ -34,7 +34,8 @@ namespace WebAddressbookTests
             address.Address2 = "1234567 Address2";
             address.Phone2 = "++79999999999";
             address.Notes = "Notes";
-            app.Address.Remove(1, address);                               
+            app.Address.RemoveModifyAddressPreparation(address);
+            app.Address.Remove(1);                               
         }
 
     }
