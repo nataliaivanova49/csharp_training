@@ -1,5 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -9,15 +12,12 @@ namespace WebAddressbookTests
         [TestMethod]
         public void TestMethod1()
         {
-            double total = 1500;
-            if(total > 1000) 
+            IWebDriver driver = null;
+            int attempt = 0;
+            while  (driver.FindElements(By.Id("test")).Count == 0 && attempt<60)
             {
-                total = total * 0.9;
-                Console.Out.Write("Скидка 10%, общая сумма" + total);
-            }
-            else 
-            {
-                Console.Out.Write("Скидки нет, общая сумма" + total);
+                System.Threading.Thread.Sleep(1000);
+                attempt++;
             }
         }
     }

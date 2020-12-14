@@ -13,7 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void AddressRemovalTest() 
         {
-            AddressData address = new AddressData("Natalia", "Ivanova", "123456 Address", "88121234567", "nataliaivanova49@gmail.com");
+            AddressData address = new AddressData("Natalia", "Ivanova");
             address.Middlename = "Alexander";
             address.Nickname = "nataliaivanova49";
             address.Title = "Test";
@@ -35,7 +35,11 @@ namespace WebAddressbookTests
             address.Phone2 = "++79999999999";
             address.Notes = "Notes";
             app.Address.RemoveModifyAddressPreparation(address);
-            app.Address.Remove(1);                               
+            List<AddressData> oldAddress = app.Address.GetAddressList();
+            app.Address.Remove(0);
+            List<AddressData> newAddress = app.Address.GetAddressList();
+            oldAddress.RemoveAt(0);
+            Assert.AreEqual(oldAddress, newAddress);
         }
 
     }

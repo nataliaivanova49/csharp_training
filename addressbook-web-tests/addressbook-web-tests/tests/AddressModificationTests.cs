@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 
+
 namespace WebAddressbookTests
 {
     [TestFixture]
@@ -14,7 +15,7 @@ namespace WebAddressbookTests
         [Test]
         public void AddressModificationTest()
         {
-            AddressData newData = new AddressData("aaa","bbb","ccc","ddd", "eee");
+            AddressData newData = new AddressData("aaa","bbb");
             newData.Middlename = "qqq";
             newData.Nickname = "qqq";
             newData.Title = "qqq";
@@ -35,7 +36,7 @@ namespace WebAddressbookTests
             newData.Phone2 = null;
             newData.Notes = null;
 
-            AddressData address = new AddressData("Natalia", "Ivanova", "123456 Address", "88121234567", "nataliaivanova49@gmail.com");
+            AddressData address = new AddressData("Natalia", "Ivanova");
             address.Middlename = "Alexander";
             address.Nickname = "nataliaivanova49";
             address.Title = "Test";
@@ -58,7 +59,14 @@ namespace WebAddressbookTests
             address.Notes = "Notes";
 
             app.Address.RemoveModifyAddressPreparation(address);
+            List<AddressData> oldAddress = app.Address.GetAddressList();
             app.Address.Modify(newData);
+            List<AddressData> newAddress = app.Address.GetAddressList();
+            oldAddress[0].Firstname = newData.Firstname;
+            oldAddress[0].Lastname = newData.Lastname;
+            oldAddress.Sort();
+            newAddress.Sort();
+            Assert.AreEqual(oldAddress, newAddress);
         }
     }
 }

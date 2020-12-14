@@ -72,6 +72,28 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<AddressData> GetAddressList()
+        {
+            List<AddressData> addresses = new List<AddressData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements1 = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+            foreach (IWebElement element in elements1)
+            {
+                var cells = element.FindElements(By.TagName("td"));
+                if(cells.Count > 3)
+                {
+                    var surname = cells[1].Text;
+                    var name = cells[2].Text;
+                    addresses.Add(new AddressData(name, surname));
+                }
+            }
+            //ICollection<IWebElement> elements2 = driver.FindElements(By.CssSelector("tr.odd"));
+            //foreach (IWebElement element in elements2)
+            //{
+            //    addresses.Add(new AddressData(element, null));
+            //}
+            return addresses;
+        }
         public AddressHelper SubmitAddressCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
@@ -131,7 +153,7 @@ namespace WebAddressbookTests
         }
         public AddressHelper SelectAddress(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
         public AddressHelper RemoveAddress()

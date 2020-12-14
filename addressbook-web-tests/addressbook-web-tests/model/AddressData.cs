@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class AddressData
+    public class AddressData: IEquatable<AddressData>, IComparable<AddressData>
     {
         protected string firstname;
         protected string middlename = "";
@@ -14,12 +14,12 @@ namespace WebAddressbookTests
         protected string nickname = "";
         protected string title = "";
         protected string company = "";
-        protected string address;
-        protected string home;
+        protected string address = "";
+        protected string home = "";
         protected string mobile = "";
         protected string work = "";
         protected string fax = "";
-        protected string email;
+        protected string email = "";
         protected string email2 = "";
         protected string email3 = "";
         protected string homepage = "";
@@ -34,15 +34,33 @@ namespace WebAddressbookTests
         protected string phone2 = "";
         protected string notes = "";
 
-        public AddressData(string firstname, string lastname, string address, string home, string email)
+        public AddressData(string firstname, string lastname)
         {
             this.firstname = firstname;
-            this.lastname = lastname;
-            this.address = address;
-            this.home = home;
-            this.email = email;
+            this.lastname = lastname;            
+        }
+        public bool Equals(AddressData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Firstname == other.Firstname && Lastname == other.Lastname;
         }
 
+        public int CompareTo(AddressData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Firstname.CompareTo(other.Firstname);
+        }
+       
 
         public string Firstname
         {
