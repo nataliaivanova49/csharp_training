@@ -72,31 +72,32 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<AddressData> addressCache = null;
         public List<AddressData> GetAddressList()
         {
-            List<AddressData> addresses = new List<AddressData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements1 = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
-            foreach (IWebElement element in elements1)
+            if (addressCache == null)
             {
-                var cells = element.FindElements(By.TagName("td"));
-                if(cells.Count > 3)
+                addressCache = new List<AddressData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+                foreach (IWebElement element in elements)
                 {
-                    var surname = cells[1].Text;
-                    var name = cells[2].Text;
-                    addresses.Add(new AddressData(name, surname));
+                    var cells = element.FindElements(By.TagName("td"));
+                    if (cells.Count > 3)
+                    {
+                        var surname = cells[1].Text;
+                        var name = cells[2].Text;
+                        addressCache.Add(new AddressData(name, surname));
+                    }
                 }
+               
             }
-            //ICollection<IWebElement> elements2 = driver.FindElements(By.CssSelector("tr.odd"));
-            //foreach (IWebElement element in elements2)
-            //{
-            //    addresses.Add(new AddressData(element, null));
-            //}
-            return addresses;
+            return new List<AddressData>(addressCache);
         }
         public AddressHelper SubmitAddressCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            addressCache = null;
             return this;
         }
 
@@ -160,11 +161,13 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            addressCache = null;
             return this;
         }
         public AddressHelper SubmitAddressModification()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            addressCache = null;
             return this;
         }
 
