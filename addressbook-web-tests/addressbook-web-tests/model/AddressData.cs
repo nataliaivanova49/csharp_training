@@ -54,11 +54,16 @@ namespace WebAddressbookTests
 
         public int CompareTo(AddressData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other.Lastname, null))
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname);
+            if (Object.ReferenceEquals(other.Firstname, null))
+            {
+                return 1;
+            }
+                             
+            return Lastname.CompareTo(other.Lastname);
         }
        
 
