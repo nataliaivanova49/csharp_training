@@ -7,6 +7,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Threading;
 
 namespace WebAddressbookTests
 {
@@ -161,6 +162,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            Thread.Sleep(5000);
             addressCache = null;
             return this;
         }
@@ -197,6 +199,7 @@ namespace WebAddressbookTests
             }
             return this;
         }
+        
     }
 }
 

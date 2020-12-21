@@ -62,10 +62,19 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-                             
+            if (Lastname == other.Lastname)
+
+            {
+                if (Firstname == other.Firstname)
+                {
+                    return Firstname.CompareTo(other.Firstname);
+                }
+            }
             return Lastname.CompareTo(other.Lastname);
+
         }
        
+
 
         public string Firstname
         {
