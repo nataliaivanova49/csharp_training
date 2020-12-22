@@ -13,6 +13,7 @@ namespace WebAddressbookTests
     public class ApplicationManager
     {
         protected IWebDriver driver;
+        protected WebDriverWait wait;
         protected string baseURL;
         
         protected LoginHelper loginHelper;
@@ -25,6 +26,7 @@ namespace WebAddressbookTests
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
             baseURL = "http://localhost/addressbook/";
             
             loginHelper = new LoginHelper(this);
@@ -88,6 +90,13 @@ namespace WebAddressbookTests
             get 
             {
                 return driver;
+            }
+        }
+        public WebDriverWait Wait
+        {
+            get
+            {
+                return wait;
             }
         }
     }

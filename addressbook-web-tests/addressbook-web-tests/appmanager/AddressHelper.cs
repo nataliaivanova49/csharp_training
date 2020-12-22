@@ -209,9 +209,11 @@ namespace WebAddressbookTests
         }
         public AddressHelper RemoveAddress()
         {
+           
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
-            Thread.Sleep(5000);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            driver.FindElement(By.ClassName("msgbox"));            
             addressCache = null;
             return this;
         }
