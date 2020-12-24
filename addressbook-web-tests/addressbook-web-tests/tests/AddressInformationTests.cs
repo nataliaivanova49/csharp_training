@@ -15,6 +15,7 @@ namespace WebAddressbookTests
         {
             AddressData fromTable = app.Address.GetAddressInformationFromTable(0);
             AddressData fromForm = app.Address.GetAddressInformationFromEditForm(0);
+           // AddressData fromProperty = app.Address.GetAddressInformationFromPropertyForm(0); 
             //verification
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);

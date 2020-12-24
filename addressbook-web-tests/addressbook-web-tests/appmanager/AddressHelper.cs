@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -35,10 +36,27 @@ namespace WebAddressbookTests
             };
         }
 
+        //public AddressData GetAddressInformationFromPropertyForm(int index)
+        //{
+        //    manager.Navigator.GoToHomePage();
+        //    IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+        //        .FindElements(By.TagName("td"));
+        //    string lastName = cells[1].Text;
+        //    string firstName = cells[2].Text;
+        //    GoToAddressPropertyPage(index);
+        //    string addressDataFromPage = driver.FindElement(By.Id("content")).Text;
+        //    return new AddressData(firstName, lastName)
+        //    {
+        //        AddressDataFromPage = addressDataFromPage
+        //    };
+        //}
+
+        
+
         public AddressData GetAddressInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitAddressModification(0);
+            InitAddressModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -252,7 +270,20 @@ namespace WebAddressbookTests
             }
             return this;
         }
-        
+        private void GoToAddressPropertyPage(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
+        public int GetNumberOfSearchResults() 
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
     }
 }
 

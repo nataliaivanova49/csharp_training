@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -10,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allMails;
+        //private string addressDataFromPage;
         protected string firstname;
         protected string middlename = "";
         protected string lastname;
@@ -130,7 +132,7 @@ namespace WebAddressbookTests
                 }
                 else 
                 {
-                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
+                    return (CleanUpPhone(Home) + CleanUpPhone(Mobile) + CleanUpPhone(Work) + CleanUpPhone(Phone2)).Trim();
                 }
             }
             set 
@@ -138,7 +140,7 @@ namespace WebAddressbookTests
                 allPhones = value;
             } 
         }
-        private string CleanUp(string phone) 
+        private string CleanUpPhone(string phone) 
         {
             if (phone == null || phone == "")
             {
@@ -146,7 +148,7 @@ namespace WebAddressbookTests
             }
             else 
             {
-                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+                return Regex.Replace(phone,"[ -()]","") + "\r\n";
             }
         }
         public string AllMails
@@ -159,7 +161,8 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Email + "\r\n" + Email2 + "\r\n" + Email3 ).Trim();
+                    return (ReadyEmail(Email) + ReadyEmail(Email2) + ReadyEmail(Email3)).Trim();
+
                 }
             }
             set
@@ -167,6 +170,35 @@ namespace WebAddressbookTests
                 allMails = value;
             }
         }
+        private string ReadyEmail(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            else
+            {
+                return email + "\r\n";
+            }
+        }
+        //public string AddressDataFromPage
+        //{
+        //    get
+        //    {
+        //        if (addressDataFromPage != null)
+        //        {
+        //            return addressDataFromPage;
+        //        }
+        //        else
+        //        {
+        //            return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
+        //        }
+        //    }
+        //    set
+        //    {
+        //        addressDataFromPage = value;
+        //    }
+        //}
     }
 }
 
