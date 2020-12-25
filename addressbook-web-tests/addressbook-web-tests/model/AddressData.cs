@@ -237,7 +237,7 @@ namespace WebAddressbookTests
                         int bYearInt = int.Parse(Byear);
                         int year = dateNow.Year - bYearInt;
                         string stringyear = year.ToString();
-                        Byear = Byear + "(" + stringyear + ")";
+                        Byear = Byear + " (" + stringyear + ")";
                     };
 
                     if (Ayear == null || Ayear == "" || Ayear == "-")
@@ -249,20 +249,20 @@ namespace WebAddressbookTests
                         int aYearInt = int.Parse(Ayear);
                         int yearA = dateNow.Year - aYearInt;
                         string stringyearA = yearA.ToString();
-                        Ayear = Ayear + "(" + stringyearA + ")";
+                        Ayear = Ayear + " (" + stringyearA + ")";
                     };
 
-                    if (Bmonth == null | Bday == "" | Bday == "-")
+                    if (Bmonth == null || Bmonth == "" || Bmonth == "-" )
                     {
                         Bmonth = "";
                     }
 
-                    if (Amonth == null | Bday == "" | Bday == "-")
+                    if (Amonth == null || Amonth == "" || Amonth == "-")
                     {
                         Amonth = "";
                     }
 
-                    if (Bday == null | Bday == "" |Bday == "-")
+                    if (Bday == null || Bday == "" ||Bday == "-" || Bday == "0")
                     {
                         Bday = "";
                     }
@@ -270,7 +270,7 @@ namespace WebAddressbookTests
                     {
                         Bday = Bday + ".";                    
                     };
-                    if (Aday == null || Aday == "" || Aday == "-")
+                    if (Aday == null || Aday == "" || Aday == "-" || Aday == "0")
                     {
                         Aday = "";
                     }

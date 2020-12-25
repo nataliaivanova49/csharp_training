@@ -78,17 +78,17 @@ namespace WebAddressbookTests
 
             IList<IWebElement> cells1 = driver.FindElements(By.Name("bday"))[index]
                 .FindElements(By.TagName("option"));
-            string birthDay = cells1[1].Text;
+            string birthDay = cells1[0].GetAttribute("value");
             IList<IWebElement> cells2 = driver.FindElements(By.Name("bmonth"))[index]
                 .FindElements(By.TagName("option"));
-            string birthMonth = cells2[1].Text;            
+            string birthMonth = cells2[0].GetAttribute("value");            
             string birthYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
-            IList<IWebElement> cells3 = driver.FindElements(By.Name("bday"))[index]
+            IList<IWebElement> cells3 = driver.FindElements(By.Name("aday"))[index]
                 .FindElements(By.TagName("option"));
-            string anniversaryDay = cells3[1].Text;
-            IList<IWebElement> cells4 = driver.FindElements(By.Name("bmonth"))[index]
+            string anniversaryDay = cells3[0].GetAttribute("value");
+            IList<IWebElement> cells4 = driver.FindElements(By.Name("amonth"))[index]
                 .FindElements(By.TagName("option"));
-            string anniversaryMonth = cells4[1].Text;
+            string anniversaryMonth = cells4[0].GetAttribute("value");
             string anniversaryYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
 
 
