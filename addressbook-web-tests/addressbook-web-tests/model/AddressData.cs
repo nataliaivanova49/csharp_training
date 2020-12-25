@@ -11,7 +11,9 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allMails;
-        //private string addressDataFromPage;
+        private string addressDataFromPage;
+        private string Name;
+        private string Block1;
         protected string firstname;
         protected string middlename = "";
         protected string lastname;
@@ -161,7 +163,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (ReadyEmail(Email) + ReadyEmail(Email2) + ReadyEmail(Email3)).Trim();
+                    return (ReadyText(Email) + ReadyText(Email2) + ReadyText(Email3)).Trim();
 
                 }
             }
@@ -170,35 +172,149 @@ namespace WebAddressbookTests
                 allMails = value;
             }
         }
-        private string ReadyEmail(string email)
+        private string ReadyText(string text)
         {
-            if (email == null || email == "")
+            if (text == null || text == "")
             {
                 return "";
             }
             else
             {
-                return email + "\r\n";
+                return text + "\r\n";
             }
         }
-        //public string AddressDataFromPage
-        //{
-        //    get
-        //    {
-        //        if (addressDataFromPage != null)
-        //        {
-        //            return addressDataFromPage;
-        //        }
-        //        else
-        //        {
-        //            return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
-        //        }
-        //    }
-        //    set
-        //    {
-        //        addressDataFromPage = value;
-        //    }
-        //}
+        public string AddressDataFromPage
+        {
+            get
+            {
+                if (addressDataFromPage != null)
+                {
+                    return addressDataFromPage;
+                }
+                else
+                {
+                    Name = (FullName(Firstname) + FullName(Middlename) + FullName(Lastname)).Trim();
+                    Block1 = (ReadyText(Name) + ReadyText(Nickname) + ReadyText(Title) + ReadyText(Address)).Trim();
+                    if (CleanUpPhone(Home) != "")
+                    {
+                        string CleanUpHome = CleanUpPhone(Home);
+                        Home = "H: " + CleanUpHome;
+                    }
+                                        
+                    if (CleanUpPhone(Mobile) != "")
+                    {
+                         string CleanUpMobile = CleanUpPhone(Mobile);
+                         Mobile = "M: " + CleanUpMobile;
+                    }
+                    if (CleanUpPhone(Work) != "")
+                    {
+                         string CleanUpWork = CleanUpPhone(Work);
+                         Work = "W: " + CleanUpWork;
+                    }
+                                       
+                    if (CleanUpPhone(Fax) != "")
+                    {
+                        string CleanUpFax = CleanUpPhone(Fax);
+                        Fax = "F: " + CleanUpFax;
+                    }
+
+                    string PhonesFax = (ReadyText(Home) + ReadyText(Mobile) + ReadyText(Work) + ReadyText(Fax)).Trim();
+                    
+                    if(ReadyText(Homepage) != "")
+                    {
+                        Homepage = "Homepage:\r\n" + Homepage;
+                    }
+                                        
+                    string MailsHomepage = (ReadyText(Email) + ReadyText(Email2) + ReadyText(Email3) + ReadyText(Homepage)).Trim();
+
+                    DateTime dateNow = DateTime.Now;
+                    if (Byear == null || Byear == "")
+                    {
+                        Byear = "";
+                    }
+                    else
+                    {
+                        int bYearInt = int.Parse(Byear);
+                        int year = dateNow.Year - bYearInt;
+                        string stringyear = year.ToString();
+                        Byear = Byear + "(" + stringyear + ")";
+                    };
+
+                    if (Ayear == null || Ayear == "" || Ayear == "-")
+                    {
+                        Ayear = "";
+                    }
+                    else
+                    {
+                        int aYearInt = int.Parse(Ayear);
+                        int yearA = dateNow.Year - aYearInt;
+                        string stringyearA = yearA.ToString();
+                        Ayear = Ayear + "(" + stringyearA + ")";
+                    };
+
+                    if (Bmonth == null | Bday == "" | Bday == "-")
+                    {
+                        Bmonth = "";
+                    }
+
+                    if (Amonth == null | Bday == "" | Bday == "-")
+                    {
+                        Amonth = "";
+                    }
+
+                    if (Bday == null | Bday == "" |Bday == "-")
+                    {
+                        Bday = "";
+                    }
+                    else
+                    {
+                        Bday = Bday + ".";                    
+                    };
+                    if (Aday == null || Aday == "" || Aday == "-")
+                    {
+                        Aday = "";
+                    }
+                    else
+                    {
+                        Aday = Aday + ".";
+                    };
+                    string BirthDayFully = (FullName(Bday) + FullName(Bmonth) + FullName(Byear)).Trim();
+                    if (BirthDayFully != "") 
+                    {
+                        BirthDayFully = "Birthday " + BirthDayFully;
+                    };
+                    string AnniversaryDayFully = (FullName(Aday) + FullName(Amonth) + FullName(Ayear)).Trim();
+                    if (AnniversaryDayFully != "")
+                    {
+                        AnniversaryDayFully = "Anniversary " + AnniversaryDayFully;
+                    };
+                    if (CleanUpPhone(Phone2) != "")
+                    {
+                        string CleanUpPhone2 = CleanUpPhone(Phone2);
+                        Phone2 = "P: " + CleanUpPhone2;
+                    }
+
+                    return Regex.Replace((ReadyText(Block1) + ReadyText(PhonesFax) + ReadyText(MailsHomepage) +  ReadyText(BirthDayFully) + ReadyText(AnniversaryDayFully) + ReadyText(Address2) + ReadyText(Phone2) + ReadyText(Notes)),"\r\n","");
+
+                }
+            }
+            set
+            {
+                addressDataFromPage = value;
+            }
+        }
+
+        private string FullName(string name)
+        {
+            if (name == null || name == "")
+            {
+                return "";
+            }
+            else
+            {
+                return name + " ";
+            }
+        }
     }
 }
 
