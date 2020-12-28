@@ -47,7 +47,7 @@ namespace WebAddressbookTests
             string addressDataFromPage = driver.FindElement(By.Id("content")).Text;
             return new AddressData(firstname, lastname)
             {
-                AddressDataFromPage = (Regex.Replace(addressDataFromPage, "\r\n", "")).Trim() 
+                AddressDataFromPage = addressDataFromPage 
             };
         }
 

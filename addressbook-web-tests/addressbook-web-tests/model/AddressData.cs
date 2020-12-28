@@ -194,7 +194,7 @@ namespace WebAddressbookTests
                 else
                 {
                     Name = (FullName(Firstname) + FullName(Middlename) + FullName(Lastname)).Trim();
-                    Block1 = (ReadyText(Name) + ReadyText(Nickname) + ReadyText(Title) + ReadyText(Address)).Trim();
+                    Block1 = ReadyText(Name) + ReadyText(Nickname) + ReadyText(Title) + ReadyText(Address);
                     if (CleanUpPhone(Home) != "")
                     {
                         string CleanUpHome = CleanUpPhone(Home);
@@ -218,14 +218,14 @@ namespace WebAddressbookTests
                         Fax = "F: " + CleanUpFax;
                     }
 
-                    string PhonesFax = (ReadyText(Home) + ReadyText(Mobile) + ReadyText(Work) + ReadyText(Fax)).Trim();
+                    string PhonesFax = Home + Mobile + Work + Fax;
                     
                     if(ReadyText(Homepage) != "")
                     {
                         Homepage = "Homepage:\r\n" + Homepage;
                     }
                                         
-                    string MailsHomepage = (ReadyText(Email) + ReadyText(Email2) + ReadyText(Email3) + ReadyText(Homepage)).Trim();
+                    string MailsHomepage = ReadyText(Email) + ReadyText(Email2) + ReadyText(Email3) + ReadyText(Homepage);
 
                     DateTime dateNow = DateTime.Now;
                     if (Byear == null || Byear == "")
@@ -294,7 +294,7 @@ namespace WebAddressbookTests
                         Phone2 = "P: " + CleanUpPhone2;
                     }
 
-                    return Regex.Replace((ReadyText(Block1) + ReadyText(PhonesFax) + ReadyText(MailsHomepage) +  ReadyText(BirthDayFully) + ReadyText(AnniversaryDayFully) + ReadyText(Address2) + ReadyText(Phone2) + ReadyText(Notes)),"\r\n","");
+                    return (ReadyText(Block1) + ReadyText(PhonesFax) + ReadyText(MailsHomepage) + ReadyText(ReadyText(BirthDayFully) + ReadyText(AnniversaryDayFully)) + ReadyText(Address2) + "\r\n" + ReadyText(Phone2) + ReadyText(Notes)).Trim();
 
                 }
             }
