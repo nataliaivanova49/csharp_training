@@ -29,15 +29,15 @@ namespace WebAddressbookTests
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();            
+            List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            foreach (GroupData item in newGroups) 
+            foreach (GroupData item in newGroups)
             {
-                if (item.Id == oldData.Id) 
+                if (item.Id == oldData.Id)
                 {
                     Assert.AreEqual(item.Name, newData.Name);
                 }

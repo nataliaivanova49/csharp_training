@@ -11,34 +11,44 @@ namespace WebAddressbookTests
     [TestFixture]
     public class AddressCreationTests : AuthTestBase
     {
-        [Test]
-        public void AddressCreationTest()
+        public static IEnumerable<AddressData> RandomAddressDataProvider()
         {
-            AddressData address = new AddressData("Natalia", "Ivanova");
-            address.Middlename = "Alexander";
-            address.Nickname = "nataliaivanova49";
-            address.Title = "Test";
-            address.Address = "123456 Address";
-            address.Company = "ABC";
-            address.Home = "88121234567";
-            address.Mobile = "+79041234567";
-            address.Work = "88127654321";
-            address.Fax = "88121726354";
-            address.Email = "nataliaivanova49@gmail.com";
-            address.Email2 = "nataliaivanova49@gmail.com";
-            address.Email3 = "nataliaivanova49@gmail.com";
-            address.Homepage = "qqq.com";
-            address.Bday = "17";
-            address.Bmonth = "June";
-            address.Byear = "1985";
-            address.Aday = "17";
-            address.Amonth = "June";
-            address.Ayear = "2025";
-            address.Groupselection = "none";
-            address.Address2 = "1234567 Address2";
-            address.Phone2 = "+79999999999";
-            address.Notes = "Notes";
-            
+            List<AddressData> address = new List<AddressData>();
+            for (int i = 0; i < 5; i++)
+            {
+                address.Add(new AddressData(GenerateRandomString(30), GenerateRandomString(30))
+                {
+                    Middlename = GenerateRandomString(30),
+                    Nickname = GenerateRandomString(30),
+                    Title = GenerateRandomString(30),
+                    Address = GenerateRandomString(30),
+                    Company = GenerateRandomString(30),
+                    Home = GenerateRandomInt(11),
+                    Mobile = GenerateRandomInt(11),
+                    Work = GenerateRandomInt(11),
+                    Fax = GenerateRandomInt(11),
+                    Email = GenerateRandomString(20) + "@gmail.com",
+                    Email2 = GenerateRandomString(20) + "@mail.ru",
+                    Email3 = GenerateRandomString(20) + "@yandex.ru",
+                    Homepage = "qqq.com",
+                    Bday = "17",
+                    Bmonth = "June",
+                    Byear = "1985",
+                    Aday = "17",
+                    Amonth = "June",
+                    Ayear = "2025",
+                    Groupselection = "none",
+                    Address2 = GenerateRandomString(30),
+                    Phone2 = GenerateRandomInt(11),
+                    Notes = GenerateRandomString(100)
+                });
+            };
+           
+            return address;
+        }
+        [Test, TestCaseSource("RandomAddressDataProvider")]
+        public void AddressCreationTest(AddressData address)
+        {            
             List<AddressData> oldAddress = app.Address.GetAddressList();
             app.Address.Create(address);
             List<AddressData> newAddress = app.Address.GetAddressList();
@@ -48,42 +58,7 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldAddress, newAddress);
            
         }
-        [Test]
-        public void EmptyAddressCreationTest()
-        {
-            AddressData address = new AddressData("", "");
-            address.Middlename = "";
-            address.Nickname = "";
-            address.Title = "";
-            address.Address = "";
-            address.Home = "";
-            address.Company = "";
-            address.Mobile = "";
-            address.Work = "";
-            address.Fax = "";
-            address.Email = "";
-            address.Email2 = "";
-            address.Email3 = "";
-            address.Homepage = "";
-            address.Bday = "";
-            address.Bmonth = "";
-            address.Byear = "";
-            address.Aday = "";
-            address.Amonth = "";
-            address.Ayear = "";
-            address.Groupselection = "none";
-            address.Address2 = "";
-            address.Phone2 = "";
-            address.Notes = "";
-
-            List<AddressData> oldAddress = app.Address.GetAddressList();
-            app.Address.Create(address);
-            List<AddressData> newAddress = app.Address.GetAddressList();
-            oldAddress.Add(address);
-            oldAddress.Sort();
-            newAddress.Sort();
-            Assert.AreEqual(oldAddress, newAddress);
-        }
+       
 
     }
 }

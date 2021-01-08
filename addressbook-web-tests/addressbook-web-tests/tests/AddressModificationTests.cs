@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         [Test]
         public void AddressModificationTest()
         {
-            AddressData newData = new AddressData("aaa","bbb");
+            AddressData newData = new AddressData("aaa", "bbb");
             newData.Middlename = "qqq";
             newData.Nickname = "qqq";
             newData.Title = "qqq";
