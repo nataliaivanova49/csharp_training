@@ -93,6 +93,9 @@
     <Compile Include="tests\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="address.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="groups.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -107,6 +110,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="address.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="groups.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

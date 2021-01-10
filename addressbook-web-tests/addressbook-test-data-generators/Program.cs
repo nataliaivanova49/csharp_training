@@ -53,32 +53,35 @@ namespace addressbook_test_data_generators
             }
             else if (datatype == "address")
             {
-                address.Add(new AddressData(TestBase.GenerateRandomString(30), TestBase.GenerateRandomString(30))
+                for (int i = 0; i < count; i++)
                 {
-                    Middlename = TestBase.GenerateRandomString(30),
-                    Nickname = TestBase.GenerateRandomString(30),
-                    Title = TestBase.GenerateRandomString(30),
-                    Address = TestBase.GenerateRandomString(30),
-                    Company = TestBase.GenerateRandomString(30),
-                    Home = TestBase.GenerateRandomInt(11),
-                    Mobile = TestBase.GenerateRandomInt(11),
-                    Work = TestBase.GenerateRandomInt(11),
-                    Fax = TestBase.GenerateRandomInt(11),
-                    Email = TestBase.GenerateRandomString(20) + "@gmail.com",
-                    Email2 = TestBase.GenerateRandomString(20) + "@mail.ru",
-                    Email3 = TestBase.GenerateRandomString(20) + "@yandex.ru",
-                    Homepage = "qqq.com",
-                    Bday = "17",
-                    Bmonth = "June",
-                    Byear = "1985",
-                    Aday = "17",
-                    Amonth = "June",
-                    Ayear = "2025",
-                    Groupselection = "none",
-                    Address2 = TestBase.GenerateRandomString(30),
-                    Phone2 = TestBase.GenerateRandomInt(11),
-                    Notes = TestBase.GenerateRandomString(100)
-                });
+                    address.Add(new AddressData(TestBase.GenerateRandomString(30), TestBase.GenerateRandomString(30))
+                    {
+                        Middlename = TestBase.GenerateRandomString(30),
+                        Nickname = TestBase.GenerateRandomString(30),
+                        Title = TestBase.GenerateRandomString(30),
+                        Address = TestBase.GenerateRandomString(30),
+                        Company = TestBase.GenerateRandomString(30),
+                        Home = TestBase.GenerateRandomInt(11),
+                        Mobile = TestBase.GenerateRandomInt(11),
+                        Work = TestBase.GenerateRandomInt(11),
+                        Fax = TestBase.GenerateRandomInt(11),
+                        Email = TestBase.GenerateRandomString(20) + "@gmail.com",
+                        Email2 = TestBase.GenerateRandomString(20) + "@mail.ru",
+                        Email3 = TestBase.GenerateRandomString(20) + "@yandex.ru",
+                        Homepage = "qqq.com",
+                        Bday = "17",
+                        Bmonth = "June",
+                        Byear = "1985",
+                        Aday = "17",
+                        Amonth = "June",
+                        Ayear = "2025",
+                        Groupselection = "none",
+                        Address2 = TestBase.GenerateRandomString(30),
+                        Phone2 = TestBase.GenerateRandomInt(11),
+                        Notes = TestBase.GenerateRandomString(100)
+                    });
+                }
                 if (format == "xml")
                 {
                     writeAddressToXmlFile(address, writer);

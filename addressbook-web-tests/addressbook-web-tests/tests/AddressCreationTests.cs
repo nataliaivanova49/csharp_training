@@ -63,7 +63,7 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(@"address.json"));
 
         }
-        [Test, TestCaseSource("RandomAddressDataProvider")]
+        [Test, TestCaseSource("AddressDataFromXmlFile")]
         public void AddressCreationTest(AddressData address)
         {            
             List<AddressData> oldAddress = app.Address.GetAddressList();
