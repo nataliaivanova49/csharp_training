@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 
 namespace WebAddressbookTests
@@ -45,6 +49,19 @@ namespace WebAddressbookTests
             };
            
             return address;
+        }
+        public static IEnumerable<AddressData> AddressDataFromXmlFile()
+        {
+            List<AddressData> address = new List<AddressData>();
+            return (List<AddressData>)
+                new XmlSerializer(typeof(List<AddressData>))
+                   .Deserialize(new StreamReader(@"address.xml"));
+        }
+        public static IEnumerable<AddressData> AddressDataFromJsonFile()
+        {
+
+            return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(@"address.json"));
+
         }
         [Test, TestCaseSource("RandomAddressDataProvider")]
         public void AddressCreationTest(AddressData address)

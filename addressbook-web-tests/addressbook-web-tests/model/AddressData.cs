@@ -45,6 +45,10 @@ namespace WebAddressbookTests
             Firstname = firstname;
             Lastname = lastname;
         }
+        public AddressData()
+        {
+         
+        }
         public bool Equals(AddressData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -123,7 +127,7 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         
         public string Notes { get; set; }
-       
+
         public string AllPhones 
         {
             get
@@ -200,7 +204,7 @@ namespace WebAddressbookTests
                         string CleanUpHome = CleanUpPhone(Home);
                         Home = "H: " + CleanUpHome;
                     }
-                                        
+
                     if (CleanUpPhone(Mobile) != "")
                     {
                          string CleanUpMobile = CleanUpPhone(Mobile);
@@ -211,7 +215,7 @@ namespace WebAddressbookTests
                          string CleanUpWork = CleanUpPhone(Work);
                          Work = "W: " + CleanUpWork;
                     }
-                                       
+
                     if (CleanUpPhone(Fax) != "")
                     {
                         string CleanUpFax = CleanUpPhone(Fax);
@@ -219,12 +223,12 @@ namespace WebAddressbookTests
                     }
 
                     string PhonesFax = Home + Mobile + Work + Fax;
-                    
+
                     if(ReadyText(Homepage) != "")
                     {
                         Homepage = "Homepage:\r\n" + Homepage;
                     }
-                                        
+
                     string MailsHomepage = ReadyText(Email) + ReadyText(Email2) + ReadyText(Email3) + ReadyText(Homepage);
 
                     DateTime dateNow = DateTime.Now;
@@ -314,7 +318,7 @@ namespace WebAddressbookTests
             {
                 return name + " ";
             }
-        }
     }
+}
 }
 
