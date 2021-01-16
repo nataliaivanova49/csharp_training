@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressRemovalTests : AuthTestBase
+    public class AddressRemovalTests : AddressTestBase
     {
         [Test]
         public void AddressRemovalTest() 
@@ -34,14 +34,16 @@ namespace WebAddressbookTests
                 Ayear = "2025",
                 Groupselection = "none",
                 Address2 = "1234567 Address2",
-                Phone2 = "++79999999999",
+                Phone2 = "+79999999999",
                 Notes = "Notes"
             };
             app.Address.RemoveModifyAddressPreparation(address);
-            List<AddressData> oldAddress = app.Address.GetAddressList();
-            app.Address.Remove(0);
+
+            List<AddressData> oldAddress = AddressData.GetAll();
+            AddressData toBeRemoved = oldAddress[0];
+            app.Address.Remove(toBeRemoved);
             
-            List<AddressData> newAddress = app.Address.GetAddressList();
+            List<AddressData> newAddress = AddressData.GetAll();
             oldAddress.RemoveAt(0);
             Assert.AreEqual(oldAddress, newAddress);
         }

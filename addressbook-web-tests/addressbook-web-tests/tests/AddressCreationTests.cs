@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressCreationTests : AuthTestBase
+    public class AddressCreationTests : AddressTestBase
     {
         public static IEnumerable<AddressData> RandomAddressDataProvider()
         {
@@ -63,12 +63,12 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<AddressData>>(File.ReadAllText(@"address.json"));
 
         }
-        [Test, TestCaseSource("AddressDataFromXmlFile")]
+        [Test, TestCaseSource("RandomAddressDataProvider")]
         public void AddressCreationTest(AddressData address)
         {            
-            List<AddressData> oldAddress = app.Address.GetAddressList();
+            List<AddressData> oldAddress = AddressData.GetAll();
             app.Address.Create(address);
-            List<AddressData> newAddress = app.Address.GetAddressList();
+            List<AddressData> newAddress = AddressData.GetAll();
             oldAddress.Add(address);
             oldAddress.Sort();
             newAddress.Sort();
@@ -76,6 +76,19 @@ namespace WebAddressbookTests
            
         }
        
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<AddressData> fromUi = app.Address.GetAddressList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
 
+            start = DateTime.Now;
+            List<AddressData> fromDb = AddressData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
     }
 }

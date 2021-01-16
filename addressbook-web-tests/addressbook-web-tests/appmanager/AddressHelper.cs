@@ -128,9 +128,16 @@ namespace WebAddressbookTests
             SubmitAddressCreation();
             return this;
         }
-        public AddressHelper Modify(AddressData newData)
+        public AddressHelper Modify(int v,AddressData newData)
         {
-            InitAddressModification(0);
+            InitAddressModification(v);
+            FillModifiedAddressForm(newData);
+            SubmitAddressModification();
+            return this;
+        }
+        public AddressHelper Modify(AddressData address, AddressData newData)
+        {
+            InitAddressModification(address.Id);
             FillModifiedAddressForm(newData);
             SubmitAddressModification();
             return this;
@@ -175,6 +182,12 @@ namespace WebAddressbookTests
         public AddressHelper Remove(int q)
         {            
             SelectAddress(q);
+            RemoveAddress();
+            return this;
+        }
+        public AddressHelper Remove(AddressData address)
+        {
+            SelectAddress(address.Id);
             RemoveAddress();
             return this;
         }
@@ -264,6 +277,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
+        public AddressHelper SelectAddress(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and  @value = '" + id + "'])")).Click();
+            return this;
+        }
         public AddressHelper RemoveAddress()
         {
            
@@ -281,12 +299,17 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public void InitAddressModification(int index)
+        public void InitAddressModification(int id)
         {
-            driver.FindElements(By.Name("entry"))[index]
+            driver.FindElements(By.Name("entry"))[id]
                 .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();           
+                .FindElement(By.TagName("a")).Click();
         }
+        public void InitAddressModification(string Id)
+        {
+            driver.FindElement(By.CssSelector("[href*='edit.php?id="+Id+"']")).Click();
+        }
+
         public bool IsAddressPresent()
         {
             try

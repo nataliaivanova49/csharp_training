@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddressModificationTests : AuthTestBase
+    public class AddressModificationTests : AddressTestBase
     {
         [Test]
         public void AddressModificationTest()
@@ -59,9 +59,13 @@ namespace WebAddressbookTests
             address.Notes = "Notes";
 
             app.Address.RemoveModifyAddressPreparation(address);
-            List<AddressData> oldAddress = app.Address.GetAddressList();
-            app.Address.Modify(newData);
-            List<AddressData> newAddress = app.Address.GetAddressList();
+
+            List<AddressData> oldAddress = AddressData.GetAll();
+
+            AddressData toBeRemoved = oldAddress[0];
+            app.Address.Modify(toBeRemoved, newData);
+
+            List<AddressData> newAddress = AddressData.GetAll();
             oldAddress[0].Firstname = newData.Firstname;
             oldAddress[0].Lastname = newData.Lastname;
             oldAddress.Sort();
