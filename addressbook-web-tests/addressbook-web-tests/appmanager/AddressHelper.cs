@@ -36,6 +36,52 @@ namespace WebAddressbookTests
             };
         }
 
+        internal void RemoveAddressFromGroup(AddressData address, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroupFilter(group.Name);
+            SelectAddress(address.Id);
+            CommitRemovingAddressToGroup();
+        }
+
+        private void CommitRemovingAddressToGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroupFilter(string name)
+        {            
+           new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+            
+        }
+
+        internal void AddAddressToGroup(AddressData address, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectAddress(address.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingAddressToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+        }
+
+        public void CommitAddingAddressToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public AddressData GetAddressInformationFromPropertyForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -279,7 +325,7 @@ namespace WebAddressbookTests
         }
         public AddressHelper SelectAddress(string id)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and  @value = '" + id + "'])")).Click();
+            driver.FindElement(By.Id(id)).Click();
             return this;
         }
         public AddressHelper RemoveAddress()

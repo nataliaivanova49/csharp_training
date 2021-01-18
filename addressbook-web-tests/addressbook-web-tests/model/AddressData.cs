@@ -155,12 +155,15 @@ namespace WebAddressbookTests
        
         [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+        
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
         public static List<AddressData> GetAll()
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Address select g).ToList();
+                return (from a in db.Address.Where(x => x.Deprecated == "0000-00-00 00:00:00") select a).ToList();
             }
         }
         public string AllPhones 

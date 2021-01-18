@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 {
     [Table(Name = "group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
-    {      
+    {
 
         public GroupData(string name)
         {
@@ -17,22 +17,22 @@ namespace WebAddressbookTests
         }
         public GroupData()
         {
-            
+
         }
-        public bool Equals(GroupData other) 
+        public bool Equals(GroupData other)
         {
-            if (Object.ReferenceEquals(other, null)) 
+            if (Object.ReferenceEquals(other, null))
             {
                 return false;
             }
-            if (Object.ReferenceEquals(this, other)) 
+            if (Object.ReferenceEquals(this, other))
             {
                 return true;
             }
             return Name == other.Name;
         }
-       
-        public override int GetHashCode() 
+
+        public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
@@ -40,9 +40,9 @@ namespace WebAddressbookTests
         {
             return "name=" + Name + "\nheader = " + Header + "\nfooter = " + Footer;
         }
-        public int CompareTo(GroupData other) 
+        public int CompareTo(GroupData other)
         {
-            if (Object.ReferenceEquals(other, null)) 
+            if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
@@ -56,7 +56,7 @@ namespace WebAddressbookTests
 
         [Column(Name = "group_footer")]
         public string Footer { get; set; }
-        
+
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
@@ -67,7 +67,16 @@ namespace WebAddressbookTests
                 return (from g in db.Groups select g).ToList();
             }
         }
-
+        public List<AddressData> GetAddress()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from a in db.Address
+                           from gar in db.GAR.Where( p => p.GroupId == Id && p.AddressId == a.Id && a.Deprecated == "0000-00-00 00:00:00")
+                        select a).Distinct().ToList();
+            }
+        }
+           
     }  
     
 }

@@ -72,11 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="model\AddressBookDB.cs" />
+    <Compile Include="model\GroupAddressRelation.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="tests\AddingAddressToGroupTests.cs" />
     <Compile Include="tests\AddressInformationTests.cs" />
     <Compile Include="tests\AddressModificationTests.cs" />
     <Compile Include="tests\AddressTestBase.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="tests\GroupTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\RemovingAddressFromGroupTests.cs" />
     <Compile Include="tests\SearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
