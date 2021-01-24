@@ -13,10 +13,51 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingAddressToGroup() 
         {
+            List<GroupData> allGroups = GroupData.GetAll();
+            if (allGroups.Count == 0) 
+            {
+                GroupData groupToCreate = new GroupData("zzz");
+                groupToCreate.Header = "rrr";
+                groupToCreate.Footer = "ccc";
+
+                app.Groups.Create(groupToCreate);
+            }
+
             GroupData group = GroupData.GetAll()[0];
             List<AddressData> oldList = group.GetAddress();
             List<AddressData> allAddress = AddressData.GetAll();
-            AddressData address = allAddress.First(t => oldList.All(x => x.Id != t.Id));
+            List<AddressData> addressNotInGroup = allAddress.FindAll(t => oldList.All(x => x.Id != t.Id));
+            if (addressNotInGroup.Count == 0) 
+            {
+                AddressData addressToCreate = new AddressData("qqq", "rrr");
+                addressToCreate.Middlename = "qqq";
+                addressToCreate.Nickname = "qqq";
+                addressToCreate.Title = "qqq";
+                addressToCreate.Address = "qqq";
+                addressToCreate.Company = "qqq";
+                addressToCreate.Home = "qqq";
+                addressToCreate.Mobile = "qqq";
+                addressToCreate.Work = "qqq";
+                addressToCreate.Fax = "qqq";
+                addressToCreate.Email = "qqq" + "@gmail.com";
+                addressToCreate.Email2 = "qqq" + "@mail.ru";
+                addressToCreate.Email3 = "qqq" + "@yandex.ru";
+                addressToCreate.Homepage = "qqq.com";
+                addressToCreate.Bday = "17";
+                addressToCreate.Bmonth = "June";
+                addressToCreate.Byear = "1985";
+                addressToCreate.Aday = "17";
+                addressToCreate.Amonth = "June";
+                addressToCreate.Ayear = "2025";
+                addressToCreate.Groupselection = "none";
+                addressToCreate.Address2 = "qqq";
+                addressToCreate.Phone2 = "qqq";
+                addressToCreate.Notes = "qqq";
+                app.Address.Create(addressToCreate);
+                addressNotInGroup.Add(addressToCreate);
+            }
+
+            AddressData address = addressNotInGroup.First();
             
 
             //actions

@@ -172,6 +172,8 @@ namespace WebAddressbookTests
             InitNewAddressCreation();
             FillAddressForm(address);
             SubmitAddressCreation();
+            manager.Navigator.GoToHomePage();
+
             return this;
         }
         public AddressHelper Modify(int v,AddressData newData)
