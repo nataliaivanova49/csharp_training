@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using System.IO;
 
 namespace mantis_tests
 {
@@ -19,16 +19,22 @@ namespace mantis_tests
                 Name = "administrator",
                 Password = "root",               
             };
-            ProjectData project = new ProjectData()
+            ProjectData project = new ProjectData("New Project")
             {
-                Name = "New Project",
+                
                 Status = "Development",
                 Description = "Description"
             };
             app.Auth.Login(account);
             app.MenuHelper.GoToManagementPage();
             app.MenuHelper.GoToManageProjectTab();
+            List<ProjectData> oldProjects = app.Pmh.GetProjectList();
             app.Pmh.Create(project);
+            List<ProjectData> newProjects = app.Pmh.GetProjectList();
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+            Assert.AreEqual(oldProjects, newProjects);
 
 
 

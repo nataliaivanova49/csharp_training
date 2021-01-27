@@ -41,12 +41,9 @@ namespace mantis_tests
             driver.FindElements(By.CssSelector("button.btn.btn-primary.btn-white.btn-round"))[0].Click();
         }
 
-        internal ProjectManagementHelper Remove(ProjectData project)
+        internal ProjectManagementHelper Remove()
         {
-            if (!IsElementPresent(By.CssSelector("div.table-responsive"))) 
-            {
-                Create(project);
-            }
+
             InitProjectRemoval();
             DeleteProject();
             return this;
@@ -64,6 +61,27 @@ namespace mantis_tests
             driver.FindElements(By.TagName("tbody"))[0].FindElements(By.TagName("tr"))[0]
                 .FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
         }
+        
+        public List<ProjectData> GetProjectList()
+        {
+               
+                List<ProjectData> projectCache = new List<ProjectData>();
+
+
+                IList<IWebElement> elements = driver.FindElement(By.CssSelector("table.table.table-striped.table-bordered.table-condensed.table-hover"))
+                               .FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
+                int i = 0;
+                foreach (IWebElement element in elements)
+                {
+                     string name = element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Text;
+                     projectCache.Add(new ProjectData(name));
+                i++;
+                }           
+
+        return new List<ProjectData> (projectCache);
+        }
     }
 }
-    
+
+
+
