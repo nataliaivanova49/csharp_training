@@ -14,7 +14,7 @@ namespace mantis_tests
         }
         public void GoToManagementPage() 
         {
-            driver.FindElements(By.CssSelector("span.menu-text"))[6].Click();
+            driver.FindElements(By.CssSelector("span.menu-text"))[5].Click();
         }
         public void GoToManageProjectTab()
         {

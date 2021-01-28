@@ -16,11 +16,12 @@ namespace mantis_tests
         public string InheritGlobalCategories { get; set; }
         public string ViewStatus { get; set; }
         public string Description { get; set; }
+        public string Id { get; set; }
 
-        public ProjectData(string name)
-        {
-            this.Name = name;
-        }
+        //public ProjectData()
+        //{
+            
+        //}
 
 
 

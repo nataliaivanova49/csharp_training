@@ -19,9 +19,9 @@ namespace mantis_tests
                 Name = "administrator",
                 Password = "root",
             };
-            ProjectData project = new ProjectData("New ProjectR")
+            ProjectData project = new ProjectData()
             {
-               
+                Name = "New project",
                 Status = "Development",
                 Description = "Description"
             };
@@ -29,10 +29,10 @@ namespace mantis_tests
             app.MenuHelper.GoToManagementPage();
             app.MenuHelper.GoToManageProjectTab();
             
-            List<ProjectData> oldProjects = app.Pmh.GetProjectList();
+            List<ProjectData> oldProjects = app.APIHelper.GetProjectList(account);
             if (oldProjects.Count == 0)
             {
-                app.Pmh.Create(project);
+                app.APIHelper.Create(account, project);
                 oldProjects.Add(project);
                 oldProjects.Sort();
                 app.MenuHelper.GoToManageProjectTab();
@@ -40,7 +40,7 @@ namespace mantis_tests
             
             app.Pmh.Remove();
 
-            List<ProjectData> newProjects = app.Pmh.GetProjectList();
+            List<ProjectData> newProjects = app.APIHelper.GetProjectList(account);
             oldProjects.RemoveAt(0);
             Assert.AreEqual(oldProjects, newProjects);
             

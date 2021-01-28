@@ -19,18 +19,18 @@ namespace mantis_tests
                 Name = "administrator",
                 Password = "root",               
             };
-            ProjectData project = new ProjectData("New Project")
+            ProjectData project = new ProjectData()
             {
-                
+                Name = "New Project12",
                 Status = "Development",
                 Description = "Description"
             };
             app.Auth.Login(account);
             app.MenuHelper.GoToManagementPage();
             app.MenuHelper.GoToManageProjectTab();
-            List<ProjectData> oldProjects = app.Pmh.GetProjectList();
+            List<ProjectData> oldProjects = app.APIHelper.GetProjectList(account);
             app.Pmh.Create(project);
-            List<ProjectData> newProjects = app.Pmh.GetProjectList();
+            List<ProjectData> newProjects = app.APIHelper.GetProjectList(account);
             oldProjects.Add(project);
             oldProjects.Sort();
             newProjects.Sort();

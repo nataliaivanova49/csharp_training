@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
 
 namespace mantis_tests
 {
@@ -61,25 +62,35 @@ namespace mantis_tests
             driver.FindElements(By.TagName("tbody"))[0].FindElements(By.TagName("tr"))[0]
                 .FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
         }
-        
+
         public List<ProjectData> GetProjectList()
         {
-               
-                List<ProjectData> projectCache = new List<ProjectData>();
 
 
-                IList<IWebElement> elements = driver.FindElement(By.CssSelector("table.table.table-striped.table-bordered.table-condensed.table-hover"))
-                               .FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
-                int i = 0;
-                foreach (IWebElement element in elements)
+            List<ProjectData> projectCache = new List<ProjectData>();
+
+
+            IList<IWebElement> elements = driver.FindElement(By.CssSelector("table.table.table-striped.table-bordered.table-condensed.table-hover"))
+                           .FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
+
+            foreach (IWebElement element in elements)
+            {
+                string name = element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Text;
+                string href = element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).GetAttribute("href");
+                Match m = Regex.Match(href, @"\d+$");
+                string id = m.Value;
+
+                projectCache.Add(new ProjectData()
                 {
-                     string name = element.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Text;
-                     projectCache.Add(new ProjectData(name));
-                i++;
-                }           
+                    Name = name,
+                    Id = id
+                });
 
-        return new List<ProjectData> (projectCache);
+            }
+
+            return new List<ProjectData>(projectCache);
         }
+       
     }
 }
 
