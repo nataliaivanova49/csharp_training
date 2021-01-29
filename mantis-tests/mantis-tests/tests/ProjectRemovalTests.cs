@@ -33,16 +33,15 @@ namespace mantis_tests
             if (oldProjects.Count == 0)
             {
                 app.APIHelper.Create(account, project);
-                oldProjects.Add(project);
-                oldProjects.Sort();
                 app.MenuHelper.GoToManageProjectTab();
-            }           
-            
+            }
+            List<ProjectData> projectBeforeRemove = app.APIHelper.GetProjectList(account);
+
             app.Pmh.Remove();
 
             List<ProjectData> newProjects = app.APIHelper.GetProjectList(account);
-            oldProjects.RemoveAt(0);
-            Assert.AreEqual(oldProjects, newProjects);
+            projectBeforeRemove.RemoveAt(0);
+            Assert.AreEqual(projectBeforeRemove, newProjects);
             
         }
     }
